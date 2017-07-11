@@ -4,8 +4,7 @@
 
 package MyRoutine;
 
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class RoutineGraph
 {
