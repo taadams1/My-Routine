@@ -30,6 +30,7 @@ public class Edge implements Comparable<Edge>
 		return (current.equals(one)) ? two : one;
 	}
 	
+	//general getter methods for vertices and weight
 	public Vertex getOne()
 	{
 		return this.one;
@@ -50,11 +51,13 @@ public class Edge implements Comparable<Edge>
 		this.weight = weight;
 	}
 	
+	//compares edge weights
 	public int compareTo(Edge other)
 	{
 		return this.weight - other.weight;
 	}
 	
+	//toString method for edge
 	public String toString()
 	{
 		return "[{ " + one + ", " + two + " }, "
@@ -66,7 +69,7 @@ public class Edge implements Comparable<Edge>
 		return (one.getLabel() + two.getLabel()).hashCode();
 	}
 	
-	//same edge?
+	//compare edges, return true if same
 	public boolean equals(Object other)
 	{
 		if (!( other instanceof Edge))
