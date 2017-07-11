@@ -1,12 +1,11 @@
 /**
- * Initial copy of found Vertex class,
- * working on tweaks for personal use and
- * reworking to avoid plagiarism >_>
+ * Vertex class created frmo tutorial, some tweaks
+ * made, more to come
  */
 
-import java.util.ArrayList;
-
 package MyRoutine;
+
+import java.util.ArrayList;
 
 public class Vertex
 {
@@ -43,7 +42,7 @@ public class Vertex
 	//not needed for this app
 	Edge removeNeighbor(int index)
 	{
-		this.neighborhood.remove(index);
+		return this.neighborhood.remove(index);
 	}
 	
 	//not needed for this app
