@@ -11,6 +11,7 @@ public class RoutineGraph
 	private HashMap<String, Vertex> vertices;
 	private HashMap<Integer, Edge> edges;
 
+	Vertex last;
 	
 	public RoutineGraph()
 	{
@@ -78,9 +79,11 @@ public class RoutineGraph
 		Vertex current = this.vertices.get(vertex.getLabel());
 		if (current != null)
 		{
+			current.visit();//if vertex is in graph, increment visit
 			return false;
 		}
 		vertices.put(vertex.getLabel(), vertex);
+		//track last vertex to add edge
 		return true;
 		
 	}
@@ -100,9 +103,14 @@ public class RoutineGraph
 		return new HashSet<Edge>(this.edges.values());
 	}
 	
+	//print all vertices in graph
 	public void printRoutine()
 	{
-		
+		for (String name: vertices.keySet())
+		{
+			String value = vertices.get(name).toString();
+			System.out.println(value);
+		}
 	}
 
 }

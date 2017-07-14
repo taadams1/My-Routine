@@ -72,7 +72,6 @@ public class Vertex
 		return this.place.hashCode();
 	}
 	
-	//to self: is this where to correctly increment visits?
 	public boolean equals(Object other)
 	{
 		if(!(other instanceof Vertex))
@@ -80,9 +79,7 @@ public class Vertex
 			return false;
 		}
 		Vertex v = (Vertex)other;
-		//increment visits to place if already in graph
-		v.visit();
-		
+				
 		return this.place.equals(v.place);
 	}
 	
