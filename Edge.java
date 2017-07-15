@@ -1,5 +1,4 @@
-/**Edge class built from tutorial, some tweaks made
- * more to come
+/**Edge class that builds a 
  */
 
 package MyRoutine;
@@ -8,19 +7,21 @@ public class Edge implements Comparable<Edge>
 {
 	
 	private Vertex one, two;
-	private int weight;
+	private int trips;//future value to track trips along edge in future
 	
+	//create an edge with default of one trip
 	public Edge(Vertex one, Vertex two)
 	{
 		this(one, two, 1);
 	}
 	
-	public Edge (Vertex one, Vertex two, int weight)
+	//create an edge with a specified number of trips
+	public Edge (Vertex one, Vertex two, int trips)
 	{
 		this.one = (one.getLabel().compareTo(two.getLabel())
 					<= 0) ? one : two;
 		this.two = (this.one == one) ? two : one;
-		this.weight = weight;
+		this.trips = trips;
 	}
 	
 	public Vertex getNeighbor(Vertex current)
@@ -30,7 +31,13 @@ public class Edge implements Comparable<Edge>
 		return (current.equals(one)) ? two : one;
 	}
 	
-	//general getter methods for vertices and weight
+	//future method to add trip to current edge
+	public void addTrip()
+	{
+		this.trips++;
+	}
+	
+	//general getter methods for vertices and trips
 	public Vertex getOne()
 	{
 		return this.one;
@@ -41,29 +48,31 @@ public class Edge implements Comparable<Edge>
 		return this.two;
 	}
 	
-	public int getWeight()
+	public int getTrips()
 	{
-		return this.weight;
+		return this.trips;
+	}
+	//setter for number of trips
+	public void setTrips(int trips)
+	{
+		this.trips = trips;
 	}
 	
-	public void setWeight(int weight)
-	{
-		this.weight = weight;
-	}
-	
-	//compares edge weights
+	//compares edge trips
 	public int compareTo(Edge other)
 	{
-		return this.weight - other.weight;
+		return this.trips - other.trips;
 	}
 	
 	//toString method for edge
 	public String toString()
 	{
-		return "[{ " + one + ", " + two + " }, "
-				+ weight + " ]";
+		return "[{ " + one.getLabel() + " <-> " + two.getLabel() + " }]";
+				//+ ", "
+				//+ trips + " trips ]";//trips not function in current build
 	}
 	
+	//hashcode of edge
 	public int hashCode()
 	{
 		return (one.getLabel() + two.getLabel()).hashCode();

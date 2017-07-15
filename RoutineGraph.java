@@ -1,5 +1,8 @@
-/**Graph class built from tutorial, some tweaks made
- * more to come
+/**Graph class built from tutorial, and customized to
+ * needs for My Routine program. Automatically adds edges
+ * as vertices are added by tracking the last vertex.
+ * Hash maps are used to store edges and vertices contained
+ * within the graph
  */
 
 package MyRoutine;
@@ -11,7 +14,7 @@ public class RoutineGraph
 	private HashMap<String, Vertex> vertices;
 	private HashMap<Integer, Edge> edges;
 
-	Vertex last;
+	private Vertex last;
 	
 	public RoutineGraph()
 	{
@@ -36,6 +39,7 @@ public class RoutineGraph
 		//the same path
 		if (edges.containsKey(e.hashCode()))
 		{
+			e.addTrip();//does not work
 			return false;
 		}
 		//check that edge is not incident to either vertex
@@ -50,6 +54,7 @@ public class RoutineGraph
 		return true;
 	}
 	
+	//check if an edge is contained within the graph
 	public boolean containsEdge(Edge e)
 	{
 		if (e.getOne() == null || e.getTwo() == null)
@@ -58,8 +63,6 @@ public class RoutineGraph
 		}
 		return this.edges.containsKey(e.hashCode());
 	}
-	
-	//don't need to remove edges
 	
 	//check graph for specified vertex
 	public boolean containsVertex(Vertex vertex)
@@ -73,18 +76,41 @@ public class RoutineGraph
 		return vertices.get(place);
 	}
 	
-	//method to add a vertex
+	/**Method to add vertex to the graph, also
+	 * automatically tracks last place and adds edges
+	 * between current and last vertex
+	 * @param vertex
+	 * @return true if vertex was added
+	 */
 	public boolean addVertex(Vertex vertex)
 	{
 		Vertex current = this.vertices.get(vertex.getLabel());
 		if (current != null)
 		{
-			current.visit();//if vertex is in graph, increment visit
-			return false;
+			current.visit();//if vertex exists, increment visits
+			
+			//add edge between vertices
+			addEdge(last,current);
+			//overwrite last vertex
+			last = current;
+			
+			return false;//vertex not added
+			
 		}
 		vertices.put(vertex.getLabel(), vertex);
 		//track last vertex to add edge
-		return true;
+		if(last == null)//first vertex?
+		{
+			last = vertex;
+		}
+		else
+		{
+			//add edge between vertices
+			addEdge(last,vertex);
+			//overwrite last vertex
+			last = vertex;
+		}
+		return true;//vertex was added
 		
 	}
 		
@@ -96,7 +122,7 @@ public class RoutineGraph
 	}
 	
 	/**
-	 * @return Edges in graph
+	 * @return set of Edges in graph
 	 */
 	public Set<Edge> getEdges()
 	{
@@ -112,5 +138,13 @@ public class RoutineGraph
 			System.out.println(value);
 		}
 	}
-
+	
+	public void printTrips()
+	{
+		Iterator<Edge> itr = this.getEdges().iterator();
+		while(itr.hasNext())
+		{
+			System.out.println(itr.next().toString());
+		}
+	}
 }
